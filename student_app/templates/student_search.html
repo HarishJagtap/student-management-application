@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Students list</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            label {
+                padding-right: 10px;
+            }
+            div {
+                padding: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <form action="{% url 'website-search' %}" method="get">
+                <h1>Search Student</h1>
+                <hr/>
+                <div>
+                    <div><label>Student ID</label><input type="text" name="student_id"></div>
+                    <div><label>Student Full Name</label><input type="text" name="full_name"></div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <hr/>
+        <h3>Results</h3>
+        <div>
+            <table>
+                <tr>
+                  <th>Full name</th>
+                  <th>Email</th>
+                  <th>Gender</th>
+                  <th>School name</th>
+                  <th>School phone</th>
+                  <th>Books read</th>
+                  <th>Total no of book pages read</th>
+                </tr>
+                {% for student in student_list %}
+                    <tr>
+                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.gender }}</td>
+                        <td>{{ student.school_name }}</td>
+                        <td>{{ student.school_phone }}</td>
+                        <td>{{ student.books|join:", " }}</td>
+                        <td>{{ student.total_no_of_book_pages_read }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <hr/>
+        <h3>Errors (if any)</h3>
+        <div>
+            {{ student_search_status|join:"<br>" }}
+        </div>
+        <hr/>
+        <h3>Links</h3>
+        <div>
+            <a href="{% url 'website-create' %}">Create new student</a>
+        </div>
+    </body>
+</html>

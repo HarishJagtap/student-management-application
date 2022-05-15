@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student creation form</title>
+        <style>
+            div {
+                padding: 2px;
+            }
+            label {
+                padding-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+        <form action="{% url 'website-create' %}" method="post">
+            {% csrf_token %}
+        <h1>Create a Student account</h1>
+        <fieldset>
+            <div>
+                <div><label>First name</label><input type="text" name="first_name" required></div>
+                <div><label>Last name</label><input type="text" name="last_name"></div>
+                <div><label>Email</label><input type="text" name="email" required></div>
+                <div><label>Gender</label><select name="gender">
+                    {% for value in gender_choices %}
+                        <option value="{{value}}">{{value}}</option>
+                    {% endfor %}
+                </select></div>
+                <div><label>School</label><select name="school">
+                    {% for value in school_choices %}
+                        <option value="{{value}}">{{value}}</option>
+                    {% endfor %}
+                </select></div>
+                <div><label>Books</label><select name="books" multiple>
+                    {% for value in books_choices %}
+                        <option value="{{value}}">{{value}}</option>
+                    {% endfor %}
+                </select></div>
+            </div>
+        </fieldset>
+        <button type="submit">Submit</button>
+        </form>
+        </div> 
+        <hr/>
+        <div>{{ student_create_status }}</div>
+        <hr/>
+        <h3>Links</h3>
+        <div>
+            <a href="{% url 'website-search' %}">Search all students</a>
+        </div>
+    </body>
+</html>

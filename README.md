@@ -1,0 +1,24 @@
+
+# Student management application
+
+
+
+## Installation
+
+```bash
+    cd student_management/
+    virtualenv env -p python3
+    source env/bin/activate
+
+    pip install -r requirements.txt
+    python manage.py makemigrations
+    python manage.py migrate
+
+    export SECRET_KEY="some_key"
+    python manage.py runserver
+```
+Now server will be running at http://127.0.0.1:8000/
+
+## Deployment
+
+
