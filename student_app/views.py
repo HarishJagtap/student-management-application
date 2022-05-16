@@ -48,22 +48,26 @@ def StudentSearchWebsite(request):
         context["student_search_status"].append("Student ID is not valid")
 
     students = Student.objects.all()
+    search = False
 
     # Get all students which match the full name.
     if full_name:
+        search = True
         students = students.annotate(full_name=Concat(
             'first_name', Value(' '), 'last_name'))
         students = students.filter(full_name=full_name)
 
     # Get student which matches the input ID.
     if student_id:
+        search = True
         students = students.filter(pk=student_id)
 
-    serializer = StudentSerializer(students, many=True)
-    for student_data in serializer.data:
-        context["student_list"].append(student_data)
-    if not serializer.data:
-        context["student_search_status"].append("No Students found")
+    if search:
+        serializer = StudentSerializer(students, many=True)
+        for student_data in serializer.data:
+            context["student_list"].append(student_data)
+        if not serializer.data:
+            context["student_search_status"].append("No Students found")
     
     return render(request, "student_search.html", context)
 
