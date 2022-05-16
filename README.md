@@ -6,7 +6,7 @@
 ## Installation
 
 ```bash
-    cd student_management/
+    cd inside cloned folder
     virtualenv env -p python3
     source env/bin/activate
 
