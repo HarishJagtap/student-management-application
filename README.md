@@ -11,8 +11,6 @@
     source env/bin/activate
 
     pip install -r requirements.txt
-    python manage.py makemigrations
-    python manage.py migrate
 
     export SECRET_KEY="some_key"
     python manage.py runserver
