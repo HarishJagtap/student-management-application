@@ -28,7 +28,8 @@ Username: admin <br />
 Password: admin123 <br />
 
 ### 2. URL to fetch student info
-https://student-management-harish.herokuapp.com/student/<id>/
+https://student-management-harish.herokuapp.com/student/[student_id]/ <br />
+Ex: https://student-management-harish.herokuapp.com/student/1/
 
 ### 3. Website to search student
 https://student-management-harish.herokuapp.com/website/search/
