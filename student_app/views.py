@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Value
-from django.db.models.functions import Concat
+from django.db.models.functions import Concat, Trim
 from rest_framework.decorators import action, api_view
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -43,7 +43,9 @@ def StudentSearchWebsite(request):
     student_id = 0
     full_name = request.GET.get("full_name", "")
     try:
-        student_id = int(request.GET.get("student_id", 0))
+        student_id_get = request.GET.get("student_id", 0)
+        if student_id_get:
+            student_id = int(student_id_get)
     except:
         context["student_search_status"].append("Student ID is not valid")
 
@@ -53,8 +55,8 @@ def StudentSearchWebsite(request):
     # Get all students which match the full name.
     if full_name:
         search = True
-        students = students.annotate(full_name=Concat(
-            'first_name', Value(' '), 'last_name'))
+        students = students.annotate(full_name=Trim(
+            Concat('first_name', Value(' '), 'last_name')))
         students = students.filter(full_name=full_name)
 
     # Get student which matches the input ID.
@@ -80,8 +82,8 @@ def StudentCreateWebsite(request):
         # fetched.
         "student_create_status": "",
         # Choices to fill in student creation form.
-        "gender_choices": [],
-        "school_choices": [],
+        "gender_choices": [""],
+        "school_choices": [""],
         "books_choices": [],
     }
 
